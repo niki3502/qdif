@@ -1,0 +1,347 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[english,russian]{babel}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\title{qdif}
+\author{Гаянов Никита}
+\date{February 2022}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section{Определение}
+	Уравнение
+	\[P(z,f(z),f(qz),\ldots, f(q^n z)) = 0\]
+	Где P - полином называется $q$-разностным
+	
+	\section{Пространство}
+	Решения будем искать в ввиде рядов
+	\[f(x) = \sum_{k,n \geq 0} c_{n,k} \log_q^{-k} (z) \, z^n\]
+	
+	Рассмотрим множество таких рядов (power-log transseries), таких что
+	\begin{equation}
+		\sum_{n,k\geq 0} \frac{ |c_{nk}|  }{n!k!} < \infty    \label{eq:1}
+	\end{equation}
+	Назовём его $L_D^{(1,0)}$ и ввёдем норму как \eqref{eq:1}
+	
+	\subsection{Свойства}
+	\subsubsection{Это действительно норма}
+	Дописать
+	
+	\subsubsection{Это банахово пространство}
+	
+	Заметим что $ ||\log_q^{-k} x^n + \log_q^{-s} x^r|| =||\log_q^{-k} x^n ||+||\log_q^{-s} x^r|| $ если $(p,s) \neq (q,n) $
+	
+	Если $\{f_s\}_{s=1}^\infty$ фундаментальная последовательность, то и
+	последовательность $\displaystyle \frac{c_{nk}^{(s)}}{n!k!}  $ тоже фундаментальна для всех $n,k$, значит $c_{n,k}^{(s)} \to c_{n,k}^*$
+	
+	Обозначим $f^* = \sum_{n,k\geq0} c_{nk}^* \log_q^{-k}x^n $
+	\begin{equation}
+		||f^*|| = ||f^* - f_N + f_N|| \leq ||f^* - f_N|| + ||f_N || \leq \varepsilon + C  
+	\end{equation}
+	
+	\subsubsection{Это банахова алгебра}
+	Заметим что $ ||\log_q^{-k} x^n + \log_q^{-s} x^r|| =||\log_q^{-k} x^n ||+||\log_q^{-s} x^r|| $ если $(p,s) \neq (q,n) $
+	
+	Пусть $f,g \in L_D^{(0,1)}$
+	обозначим за $f_{nk}$ слагаемое $c_{n,k} \log_q^{-k} (z) \, z^n$ 
+	
+	$||log_q^{-k} z z^n f||\leq ||log_q^{-k} z z^n|| ||f||  $ - мы просто делаем сдвиг вправо всех элементов $f$:
+	\[\hat{f}_{p,q} = f_{p-n,q-k} \]
+	Считаем значения для отрицательных индексов нулевыми
+	
+	Так как при таком преобразовании коэффициенты не меняются, а $n$ и $k$ растет, то каждое слагаемое в норме невозрастает, то и вся сумма невозрастает, а значит неравенство выполняется.
+	
+	\begin{multline}
+		||g f|| = ||\sum_{n,k\geq 0} g_{n,k} f || \leq \sum_{n,k \geq 0} ||g_{n,k} f || <= \sum_{n,k\geq 0} ||g_{n,k}|| ||f || = ||f ||\sum_{n,k\geq 0} ||g_{n,k}||  = ||f|| ||g||
+	\end{multline}
+	Первое неравенство -- из-за неравенства треугольника и непрерывности нормы, второе -- из-за замечания выше, а последнее равенство из-за замечания в начале текущего параграфа.
+	
+	
+	\subsubsection{Производная Фреше оператора $P f = f(z)f(qz) $}
+	
+	Если мы докажем что оператор $Af = f(qz)$ ограничен то мы можем с лёгкостью найти производную оператора $P$
+	\[(f(z)+h(z))(f(qz)+h(qz)) - f(z)f(qz) = f(z)h(qz)+f(qz)h(z) + h(z)h(qz) \]
+	$||h(z)h(qz)||\leq ||h(z)||||h(qz)|| \leq ||A||||h||^2 = o(||h||), h\to 0 $
+	
+	Нужно показать ограниченность $A$
+	
+	\begin{multline}
+		f(qz) = \sum_{n,k}q^n c_{nk}(1+\log_q^x)^{-k}x^n = \sum_{n,k}q^n c_{nk} \log_q^{-k} x x^n \sum_{i=0}^\infty \binom{-k}{i} \log_q^{-i}x =\\
+		= \sum_{n,k} q^n \left( \sum_{s=0}^k c_{ns}\binom{-s}{-k} \right) \log_q^{-k}(x)\, x^n
+	\end{multline}
+	
+	Нужно оценить величину
+	\[ \sum_{n,k} \frac{|q^n \left( \sum_{s=0}^k c_{n,s}\binom{-s}{-k} \right)|}{n!k!} \text{если} \sum_{n,k} \frac{|c_{nk}|}{n!k!} = 1 \]
+	
+	
+	
+	Посмотрим как ведёт себя оператор $A$ на величину $\log_q^{-k}(x)$
+	
+	\begin{multline}
+		\frac{1}{(1+\log_q x)^{k}} = \frac{1}{\log_q^k x} \frac{1}{(1+\frac{1}{\log_q x})^k} = \frac{1}{\log_q^k x} \sum_{i=0}^\infty \binom{-k}{i} \frac{1}{\log_q^i x} =\\
+		= \sum_{s=k}^\infty \binom{-k}{s-k}\frac{1}{\log_q^s x} = \sum_{s=k}^\infty \binom{-k}{-s}\frac{1}{\log_q^s x}
+	\end{multline}
+	
+	
+	
+	
+	\section{Пример}
+	
+	Рассмотрим функцию
+	\[f(x) = \sum_{n,k\geq 1} \log_q^{-k} (x) \, x^n = \frac{x}{1-x} \frac{1}{\log_q x} \frac{1}{1-\frac{1}{\log_q x}}\]
+	
+	Пусть $q \in (0,1)$
+	\begin{equation}
+		\begin{cases}
+			x > 0\\
+			|x| < 1 \\
+			| \frac{1}{\log_q x} |<1
+		\end{cases}
+		\Leftrightarrow
+		\begin{cases}
+			x \in (0,1)\\
+			x \in (0,q) \cup (1/q,\infty)
+		\end{cases}
+		\Leftrightarrow
+		x \in (0,q)    
+	\end{equation}
+	\[f(qx) =\frac{qx}{1-qx} \frac{1}{\log_q qx} \frac{1}{1-\frac{1}{\log_q qx}} \]
+	
+	\begin{equation}
+		\begin{cases}
+			q x > 0\\
+			|q x| < 1\\
+			| \frac{1}{\log_q qx} |<1
+		\end{cases}
+		\Leftrightarrow
+		\begin{cases}
+			x \in (0,1)\\
+			x \in (0,1) \cup (1/q^2,\infty)
+		\end{cases}
+		\Leftrightarrow x \in (0,1)
+	\end{equation}
+	
+	Общая область определения для обеих функций
+	
+	$x \in (0,q)$
+	
+	
+	
+	Пусть $q>1$
+	\begin{equation}
+		\begin{cases}
+			x > 0\\
+			|x| < 1 \\
+			| \frac{1}{\log_q x} |<1
+		\end{cases}
+		\Leftrightarrow
+		\begin{cases}
+			x \in (0,1)\\
+			x \in (0,1q) \cup (q,\infty)
+		\end{cases}
+		\Leftrightarrow
+		x \in (0,1/q)
+	\end{equation}
+	
+	\begin{equation}
+		\begin{cases}
+			q x > 0\\
+			|q x| < 1\\
+			| \frac{1}{\log_q qx} |<1
+		\end{cases}
+		\Leftrightarrow
+		\begin{cases}
+			x \in (0,1)\\
+			x \in (0,1/q^2) \cup (1,\infty)
+		\end{cases}
+		\Leftrightarrow x \in (0,1/q^2)
+	\end{equation}
+	
+	Общая область определения для обеих функций
+	
+	$x \in (0,1/q^2)$
+	
+	
+	
+	
+	\subsection{Статья 9064, о ряде Дюлака}
+	
+	Уравнение 
+	\[qx y_0 - q x^2 y_0 - x y_1 + qx^2 y_1 - y_0 y_1 + x y_0 y_1 + qxy_0y_1-qx^2y_0y_1=0\]
+	
+	\[\frac{\partial F}{x} = qy_0 - 2qxy_0 - y_1  + 2 q x y_1 + y_0 y_1 + q y_0 y_1  - 2qx y_0 y_1 \]
+	\[\frac{\partial F}{y_0} = qx - qx^2 - y_1 + xy_1 + qxy_1 - qx^2y_1\]
+	\[\frac{\partial F}{y_1} = -x + qx^2 - y_0 + xy_0 + qxy_0 - qx^2 y_0\]
+	
+	$ m = 1,\, a_0 = 0,\,a_1 = q, a_2 = -1 \neq 0 $ 
+	то есть все формальные решения сходятся  где то (наверное)
+	
+	\subsection{Неограниченность оператора в пространстве рядов Дюлака}
+	Пусть у нас будут ряды вида
+	\begin{equation}
+		f(x) = \sum_{n \geq 0,k\geq 1} c_{nk} \log_q^n x^k
+	\end{equation}
+	С нормой
+	\begin{equation}
+		||f|| = \sum_{n\geq 0 , k \geq 1} \frac{|c_{nk}|}{n!k!}
+	\end{equation}
+	Тогда оператор $f(qx) не  ограничен$
+	
+	Рассмотрим последовательность функций $\varphi_n(x) = n!\log_q^n x \, ||\varphi_n|| = 1$
+	
+	$A[\varphi_n](x) = n!\sum_{k=0}^n \frac{\binom{n}{k}}{k!} = n! \sum_{k=0}^n\frac{1}{k!(n-k)!}= n! L_n(-1) \to \infty $,
+	
+	где $L_n(x)$ - многочлены Лаггера
+	
+	
+	\subsection{Равномерная норма}
+	
+	Рассмотрим такие ряды
+	$$ f(x) = \sum_{n \geq 0,k\in  {Z}} c_{nk} \log_q^n x^k $$, которые состоят из непрерывных(за исключением устранимого разрыва в нуле) слагаемых и сходятся равномерно на отрезке $[0,\alpha]$, и определим норму как максимум модуля
+	
+	Сумма таких рядов также будет равномерно непрерывным сходящимся рядом на отрезке $[0,\alpha]$ как и произведение.
+	%Сделать набросок
+	$||f g|| \leq ||f||\cdot||g||$
+	$||1||=1$
+	
+	При $q \in (0,1)  ||f(qx)|| \leq ||f(x)||$
+	
+	Если у f(x) особенность в точке $a$, то у ряда f(qx) особенность в точке $a/q > a$, значит оператор действует из пространства в себя
+	%% Как доказать полноту
+	
+	\subsection{Норма из суммы ряда и производной}
+	
+	Рассмотрим
+	
+	
+	\begin{equation}
+		f(x) = \sum_{n \geq 0,k\geq 0} c_{nk} \log_q^{-n} x^k
+	\end{equation}
+	С нормой
+	\begin{align}
+		||f(x)||_1 = \sum_{n\geq 0 , k \geq 1} \frac{|c_{nk}|}{n!k!}\\
+		||f(x)|| = ||f(x)||_1 + ||f(qx)||_1
+	\end{align}
+	Тогда пространство не полное
+	
+	
+	% не получилось
+	
+	\subsection{Уравнение с решением -- рядом Дюлака}
+	
+	$f(x) = \sum_{k\geq1} (x/\log_q x)^k$
+	Тогда уравнение 
+	имеет вид
+	$$ qxY_0+ qx Y_0 Y_1 - Y_0 Y_1 - x Y_0 Y_1 - x Y_1 = 0 $$
+	
+	Линейная часть:
+	
+	$$qx Y_0 + Y_1 = 0 $$
+	
+	Производная Фреше(Для равномерной нормы):
+	
+	$$ qx H_0 + qx Y_0 H_1 + qx H_0 Y_1 -Y_0 H_1 - Y_1 H_0 - x Y_0 H_1 - x Y_1 H_0 - x H_1 =0 $$
+	
+	
+	Вычисление решения с помощью многоугольника Ньютона
+	
+	Шаг 1
+	
+	Считаем многоугольник Ньютона для начального уравнения
+	
+	Вершины : $ (0, 2), (1, 1), (1,2)  $
+	Пересечению с осью абсцисы $2,0$
+	Укороченное уравнения для мономов проходящих через $(0, 2), (1, 1)$:
+	$$ qx Y_0 - Y_0 Y_1 - xY_1 $$
+	$$ Y_0 = p_1(\log_q x) x^1$$
+	
+	Получаем нелинейное разностное уравнение
+	
+	$$ p_1(t) - p(t)p(t+1) - p(t+1) = 0   $$
+	$$ p_1(t) (\frac{1}{p(t+1)}-1)=1   $$
+	
+	$$ \frac{1}{p(t+1)}-1 = \frac{1}{p(t)}  $$
+	Замена $ \frac{1}{p(t)} = f(t)   $ сводит уравнение к линейному:
+	
+	$$ f(t+1)-f(t)-1 = 0  $$
+	Решение: $$ f(t) = t+c, p(t) = \frac{1}{t+c}   $$
+	
+	Возьмем решение удовлетворяющее $$ t = 0 $$
+	
+	2. Делаем замену $$ Y_0 \mapsto Y_0 + \frac{x}{t}, t= \log_q x $$
+	
+	Раскрывая скобки и домнажая всё на $$t(t+1)$$, Получаем уравнение
+	
+	\begin{multline}
+		-q x^3 + q^2 x^3 + q t^2 x Y_0 - q t x^2 Y_0 + q^2 t x^2 Y_0 - x Y_1 -\\
+		2 t x Y_1 - t^2 x Y_1 - x^2 Y_1 + q x^2 Y_1 - t x^2 Y_1 + q t x^2 Y_1 -\\-
+		t Y_0 Y_1 - t^2 Y_0 Y_1 - t x Y_0 Y_1 + q t x Y_0 Y_1 - t^2 x Y_0 Y_1 + 
+		q t^2 x Y_0 Y_1 = 0
+	\end{multline}
+	Строим многоугольник Ньютона, считая t как параметр 
+	
+	Вершины: $ (0,2), (1,1),(1,2),(3,0)$
+	
+	Продолжение одной грани пересекает $x=2$ но 2 уже было, поэтому переходим к следующей точке
+	
+	ВОПРОС: если делать замену по другому -- делить на степень и вычитать константу то можно ли требовать просто неотрицательность абсциссы
+	
+	Следующая точка это $(0,3)$
+	
+	укороченное уравнение для грани с точками $ (1,1) и (0,3)$ :
+	
+	$$ -q x^3 + q^2 x^3 + q t^2 x Y_0 - x Y_1 - 2 t x Y_1 - t^2 x Y_1   $$
+	
+	$$Y_0 = p(t)x^2$$
+	
+	Делим на $ q x^3$:
+	
+	$$ -1 + q + t^2 p(t) - q p (t+1) - 2 t q p(t+1) - t^2 q p(t+1) = 0  $$
+	
+	$$ -q (1+t)^2 p(t+1) + q + t^2 p(t) + -1 $$
+	
+	Уравнение разностное линейное
+	
+	Замечаем что мономы содержащие $p(t+1)$ содержат $q$, а $p(t)$ не содержат $q$. Поэтому если  искать решения для произвольного q то 
+	для любой нетождественно равной нулю (НЕ УВЕРЕН В ФОРМУЛИРОВКЕ) функции $-q (1+t)^2 p(t+1) + q$ и $t^2 p(t) + -1$ функционально независимы. Получаем тогда систему согласованных линейных уравнений:
+	
+$$	
+	\begin{cases}
+		t^2 p(t) = 1\\
+		q (1+t)^2 p(1+t) = q
+	\end{cases}
+$$
+	
+	Значит  $p(t)= \frac{1}{t^2}$
+	
+	3. Проводим замену: $Y_0 = Y_0 + x^2/t^2$
+	
+	
+	Аналогичными действиями получаем систему согласованных уравнений
+
+	\begin{multline}
+		-1 -t + q^2 t + t^3 p(t) + t^4 p(t) - t q^2 p(t+1) - 3 t^2 q^2 p(t+1)-\\
+		- 3t^3 q^2 p(t+1) - t^4 q^2 p(t+1) = 0
+	\end{multline}
+
+
+$$
+	\begin{cases}
+		t^3p(t) + t^4 p(t) - 1 -t = 0\\
+		q^2 t - q^2 p(t+1) - 3 t^2 q^2 p(t+1) - 3 t^3 q^2 p(t+1) - t^4 q^2 p(t+1) =0
+	\end{cases}
+$$
+$$
+	\begin{cases}
+		p(t) = \frac{1}{t^3}\\
+		p(t+1) = \frac{1}{(t+1)^3}
+	\end{cases}
+$$
+	$$h^*=\argmax_{h\in H}S(h)$$
+	
+	
+\end{document}
