@@ -1,0 +1,235 @@
+\documentclass[a4paper, 14pt]{extarticle}
+
+\input{preamble/packages}
+
+\addbibresource{literature.bib}
+\author{Гаянов Никита Владимирович}
+\title{$q$-разностные уравнения}
+\date{\today}
+% \AtBeginBibliography{\Large}
+\begin{document}
+
+%\input{sections/titlepage}
+%\input{sections/intro}
+
+\maketitle
+
+\begin{abstract}
+    This is a draft about $q$-difference equations and asymptotic expansions of their solutions. Here you might see theory about linear $q$-difference equations, power expansions, and new approach for searching logarithmic solution.
+\end{abstract}
+
+\section{Preliminary}
+What is $q$-difference? This is a little bit tricky question. First aff all we would need to define $q$-different operator $\sigma_q$(usually we well use only one $q$ in equation and omit it), which is actually is family of operators, depending on $q$. And domain of such an operator may be really different. There are some examples.
+
+Consider all functions acting from $\mathbb{C}$ to subset of $\mathbb{C}$.
+Then $\sigma_q [f](z) = f(qz)$.
+
+Consider Hahn series $\mathbb{C} \llbracket z^{\mathbb{R}} \rrbracket$.
+A Hahn series $f$ with complex coefficients and
+real exponents is a formal sum $f(z) =\sum_{\mu \in \mathbb{R}} f_\mu z^\mu$ whose coefficients
+$f_\mu$ are complex numbers and whose support, that is, the set
+$\{ \mu \in \mathbb{R} : f_\mu \neq 0 \}$ ,
+is a well ordered set.
+
+For such Hahn series, $\sigma$ is
+
+$\sigma[f](z) = \sum_{\mu \in \mathbb{R}} f_\mu q^\mu z^\mu$. Note that Hahn series needn't to converge anywhere.
+
+
+And for sake of power-log expansions consider power-log transeries:
+power log-transeries $f$ is $\sum_{i,j=0}^\infty f_{ij}\log_q^j(x) z^i$.
+
+Here we define
+$\sigma[f](z) = \sum_{i,j=0}^\infty f_{ij}(\log_q(z)+1)^j z^i$.
+
+Note that here definition is a a little bit trickier than in previous, because logarithm is a branching function, and $\sigma\log_q(z)$ not always equals $1+\log_q(z)$.
+Also you may see, that if $q=1$, then we actually don't have $q$-diffirences.
+Also, we don't use $q=0$, since $\sigma[f](x) \equiv f(0)$.
+
+So, we start from strict definitions.
+
+\begin{definition}[Dulac series]
+Dulac series is a formal series of the form $\sum_{k=0}^\infty P_k(\log_q z)z^k$, where $P_k$ is a polynomial.    
+\end{definition}
+
+\begin{definition}[Equal Dulac series]
+Two Dulac serias are formally equal ($\sum_{k=0}^\infty P_k(\log_q z)z^k$ and $\sum_{k=0}^\infty Q_k(\log_q z)z^k$), if $P_k \equiv Q_k$ for all $k\in Z_+$.    
+\end{definition}
+
+For the rest of paper we will consider only formal equality of Dulac series, so we will use a different designations.
+
+\begin{definition}[Dulac series - 2]
+Dulac series is a formal series of two independent variables of the form $\sum_{k=0}^\infty P_k(t)z^k$, where $P_k$ is a polynomial.    
+\end{definition}
+
+\begin{remark}
+    You can see, that two trans-series are equial in values
+    $z = 1 + \sum_{k=1}^\infty \frac{\ln^k z}{k!}, if |z-1|<1$, but they are not equal in the formal meaning.
+\end{remark}
+
+If we look at $q$-difference for actual function. You see that
+$\sigma[z] = qz$, if we look at function $w = \log_q z = \frac{\ln_z}{\ln_q}$, where $\ln_z$ is defined in all complex plane exept the set $\mathbb{R}_-$, and $\log_q 1 = 0$, then you may see that $\log_q z = \log_q z + 1$ if $ -\pi<\arg z + \arg q \leq \pi $. If inequality does not hold, then $|\log_q qz| = |\log_q z + 1|$, $\arg \log_qz = \arg(\log_q z + 1) + 2\pi n$ for some $n\in \mathbb{Z}$ such that $-\pi<\arg(\log_q z + 1) + 2\pi n \leq \pi$.
+
+\begin{definition}[$q$-difference operator for Dulac series]
+Let $f = \sum_{k=0}^\infty P_k(t)z^k$, then $\sigma[f] =  \sum_{k=0}^\infty P_k(t+1)q^kz^k$ is a $q$-difference derivative of $f$.
+\end{definition}
+
+
+
+\begin{definition}
+    An algebraic $q$-difference equation is equation of the form
+    \begin{equation}
+        y
+    \end{equation}
+\end{definition}
+
+Для такого класса уравнений существуют алгоритмы нахождения степенных разложений (см. cite), однако известно, что существуют нестепенные разложения, например уравнение
+$$y(qx) - y(x) = 1$$
+обладает решением $y(x) = \log_q x$ (главная ветвь), которое не представляется разложением степенного ряда в окрестности(в некотором секторе) нуля.
+Действительно:
+\begin{multline*}
+    y(qx) - y(x) = \log_q (qx) - \log_q x = \frac{\ln |qx| - \ln|x| + i\arg (qx) - i\arg (x)}{\ln|q| + i\arg(q)} =\\
+    = \frac{\ln|q| + i\arg (qx) - i\arg (x)}{\ln|q| + i\arg(q)} = 1
+\end{multline*}
+при условии, что $\arg (qx) = \arg(q) + \arg(x)$.
+Для этого необходимо и достаточно, чтобы $-\pi < \arg(q) + \arg(x) \leqslant \pi$, т.е
+$y(x) = \log_q x$, является решением уравнения $y(qx) - y(x) = 1$ в секторе $-\pi - \arg(q) < \arg(x) \leqslant \pi - \arg(q)$
+
+
+
+\begin{theorem}
+    Уравнение вида
+    \begin{equation} L(\sigma)y = x M(x, \log_q x, y, \sigma y, \ldots, \sigma^n y),\label{eq1}\end{equation}
+    где $L(\sigma) = \sum_{j = 0}^n a_j(\sigma)^j $ -- многочлен от оператора $\sigma$,
+    
+    $M\in \mathbb{C}[x, t, y_0, \ldots, y_n]$ -- многочлен от $n+3$ переменных,
+    
+    обладает $N$-параметрическим формальным решением уравнения \eqref{eq1} в виде ряда $\sum_{k=0}^\infty P_k(\log_q x)x^k$, где $P_k$ -- многочлены, 
+    $N$ -- количество корней  $L(z)$, которые имеют вид  $q^n, n \in \mathbb{N}$.
+\end{theorem}
+
+\begin{remark}
+    Если $N=0$, то говорим, что отсутствует резонанс.
+\end{remark}
+
+\begin{remark}
+    Если $N=0$, а в правой части отсутствуют логарифмы, то уравнение обладает степенным решением.
+\end{remark}
+\begin{remark}
+    Ряд $\sum_{k=0}^\infty P_k(\log_q x)x^k$ называется рядом Дюлака.
+\end{remark}
+
+\begin{example}[резонанса нет и в правой части нет логарифма, решение выражается в виде степенного ряда(многочлена)]
+    \begin{gather*}
+    \sigma y - 2 y = q x,\\
+    y(x) =
+    \begin{cases}
+        \frac{q}{q-2} x, q\neq 2;\\
+        x \log_2 x, q = 2.
+    \end{cases}\\
+    \end{gather*}
+\end{example}
+
+
+\begin{example}[резонанса нет и в правой части логарифм, решение выражается в виде ряда]
+\begin{gather*}
+\sigma y - (q+2) y = x \log_q x + x y,\\ 
+y(x) = -\left(\frac{1}{2}\log_q x + q/4\right)x + o(x)\,, x\to 0.\\
+\end{gather*}
+\end{example}
+
+\begin{example}[резонанса нет, справа логарифм, можно посчитать решение]
+    \begin{gather*}
+    \sigma y - 2 y = x\log_q x,\\
+    q P_1(t+1) - 2P_1(t) = t,\\
+    y(x) = \begin{cases}
+        x\left(\frac{\log_q x}{q-2} + \frac{q}{(q-2)^2}  \right), q\neq 2 \\
+        x \left( \log^2_q x/4 - 1/4 \log_q x + C \right), q = 2.
+    \end{cases} 
+    \end{gather*}
+\end{example}
+
+
+
+\begin{example}[резонанса нет, справа логарифм, можно посчитать решение]
+    \begin{gather*}
+    \sigma y - 2 y = x\log_q x,\\
+    y(x) = x\left(\frac{\log_q x}{q-2} + \frac{q}{(q-2)^2}  \right), q\neq 2.
+    \end{gather*}
+\end{example}
+
+ \begin{example}[Есть резонанс, в правой части нет логарифма, есть решение в виде ряда Дюлака]
+    \begin{gather*}
+    \sigma y - q y = x,\\
+    y(x) = (C + \log_q x)\frac{x}{q}.
+    \end{gather*}
+\end{example}
+
+Уравнение \eqref{eq1} не является алгебраическим, так как в правой части присутствует логарифм.
+Однако была доказано, что при существовании решения в виде ряда Дюлака для некоторые алгебраические $q$-разностные уравнения сводятся заменой к виду \eqref{eq1}.
+
+\begin{theorem}
+    Пусть $q$-разностное алгебраическое уравнение
+       \eqref{eq0} 
+
+        обладает формальным решением в виде ряда Дюлака.
+        
+    $$F(x, \Phi) = 0,
+        \Phi = (\varphi, \sigma \varphi, \ldots, \sigma^n \varphi).
+       $$
+        Пусть также
+        $
+        \frac{\partial F}{\partial y_j}(x,\Phi) = a_j x^m + b_j(\log_q x)x^{m+1} + \ldots \notag
+        $
+    и пусть не все $a_j=0$. Тогда существует замена, которая приводит уравнение к специальному виду \eqref{eq1}.
+    \end{theorem}
+
+    \begin{example}
+    Уравнение
+    \[\sigma y- qx - y^2 = 0\]
+    сводится заменой $y = 1 + \frac{q}{q-2}x + xv$
+    к виду 
+    \[q \sigma v = x\left(\left( \frac{q}{q-2} \right)^2 + 2 v \frac{q}{q-2} + v^2 \right). \]
+    \end{example}
+
+    Для нахождения начальных членов разложеня предлагается использовать метод многоугольников Ньютона: 
+
+    \begin{definition}
+        Для алгебраического уравнения
+        $$F(x, y, \sigma y, \ldots, \sigma^n y) = \sum_{k=1}^n C_k x^{a_k} y^{\alpha_{k0}} \ldots (\sigma^n y)^{\alpha_{kn}}=0$$ 
+
+        многоугольником Ньютона называется
+        $$N(F) = Conv \left( \left\{ \left(a_k, \sum_{i=0}^n \alpha_{ki}\right)\right\}_{k=1}^N\right),$$
+        то есть каждому моному $F$ ставится в соответствие точка на плоскости. Выпуклая оболочка этих точек прендставляет собой многоугольнгик Ньютона.
+    \end{definition}
+
+    \begin{lemma}
+        Степенными преобразованиями:
+        \begin{enumerate}
+            \item $y = x^s \hat{y},$
+            \item $F (x, y, \ldots, \sigma^n y) = x^s \hat{F} (x, y, \ldots, \sigma^n y)$.
+        \end{enumerate}
+Можно привести любое негоризонтальное ребро в
+многоугольнике Ньютона к вертикальному.
+    \end{lemma}
+
+    Вертикальным ребрам соответствует укороченное уравнение
+    \begin{equation}
+    G(P(t),\ldots, P(t+n)) = \sum_k \gamma_k q^\lambda P^{\alpha_{k_0}}(t)\ldots P^{\alpha_{k_n}}(t+n)= 0. \label{eq:3}\end{equation}
+    Это алгебраическое разностное автономное уравнение.
+    Для данного уравнения ищются решения в виде многочленов.
+
+    Как было показано в (cite), если $n=1$, тоб если решение в виде многочлена $P(t)$ существует, то $\deg P \leq \deg G$.
+    В случае $n>1$ существуют уравнения, для которых не будет верхней оценки степени решения.
+
+    \begin{example}
+        \begin{multline}
+    G(P(x), P(x-1), P(x-2), P(x-3)) = P(x)P(x-2)P(x-3) -\\- 2P(x-1)^2 P(x-3) + P(x-1)P(x-2)^2 +\\
+    + P(x)P(x-1)P(x-3) - 2P(x)P(x-2)^2 + P(x-1)^2 P(x-2) = 0
+\end{multline}
+имеет решение в виде факториальной степени:
+
+$g_n(x) = (x+1)(x+a-1)\ldots(x+a-(n-1))$.
+
+    \end{example}
+\end{document}

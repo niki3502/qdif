@@ -1,0 +1,56 @@
+\usepackage{textcomp}
+\usepackage{setspace}
+\onehalfspacing
+
+
+%basic geometry of paper
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage[mag=1000,a4paper,left=2.2cm,right=3.0cm,top=3.1cm,bottom=3.0cm]{geometry}
+
+
+%Math
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage[italicdiff]{physics}
+\usepackage{euscript} %Для эпсилон
+\usepackage{dsfont} %Для знака вещественного пространства
+\usepackage{mathtext} 	
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+\usepackage{stmaryrd}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\val}{val}
+\let\phi\varphi
+\let\uglyepsilon\epsilon
+\let\epsilon\varepsilon
+\let\kappa\varkappa
+\theoremstyle{definition}
+% \theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+%vector graphs
+\usepackage{tikz}
+\usepackage{pgf}
+
+
+%bibliography
+\usepackage[backend=biber,bibencoding=utf8,sorting=none,style=ieee, citestyle=numeric-comp]{biblatex}
+\usepackage{csquotes}
+
+
+\usepackage{mathtools}  
+\mathtoolsset{showonlyrefs}  
+%referencing
+% \usepackage{cleveref}
+
+%big comments
+\usepackage{comment}
